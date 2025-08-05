@@ -10,15 +10,21 @@ A complete boilerplate for building web applications with FastAPI backend, Vue.j
 - **RESTful API**: Complete CRUD operations for items and users
 - **CORS Configuration**: Properly configured for frontend-backend communication
 - **Responsive Design**: Mobile-friendly interface
+- **Environment Configuration**: Flexible configuration with environment variables
+- **Database Relationships**: Proper SQLAlchemy relationships between models
+- **Error Handling**: Comprehensive error handling with proper HTTP status codes
 
 ## Project Structure
 
 ```
 ├── backend/
 │   ├── main.py              # FastAPI application entry point
+│   ├── run.py               # Startup script for development
+│   ├── config.py            # Configuration management
 │   ├── database.py          # Database configuration
 │   ├── models.py            # SQLAlchemy models
 │   ├── schemas.py           # Pydantic schemas
+│   ├── .env.example         # Environment variables template
 │   ├── requirements.txt     # Python dependencies
 │   └── routers/
 │       ├── __init__.py
@@ -68,14 +74,33 @@ A complete boilerplate for building web applications with FastAPI backend, Vue.j
    pip install -r requirements.txt
    ```
 
-4. Run the FastAPI server:
+4. Configure environment variables (optional):
+   ```bash
+   cp .env.example .env
+   # Edit .env file with your configuration
+   ```
+
+5. Run the FastAPI server (choose one method):
+
+   **Method 1: Using the startup script (recommended for development)**
+   ```bash
+   python run.py
+   ```
+
+   **Method 2: Direct execution**
    ```bash
    python main.py
+   ```
+
+   **Method 3: Using uvicorn directly**
+   ```bash
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000
    ```
 
    The backend will be available at `http://localhost:8000`
    - API documentation: `http://localhost:8000/docs`
    - Alternative docs: `http://localhost:8000/redoc`
+   - Health check: `http://localhost:8000/api/health`
 
 ### Frontend Setup
 

@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
-from ..database import get_db
-from .. import models, schemas
+from database import get_db
+import models, schemas
 
 router = APIRouter()
 
@@ -16,11 +16,17 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     # Check if user already exists
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered"
+        )
     
     db_user = db.query(models.User).filter(models.User.username == user.username).first()
     if db_user:
-        raise HTTPException(status_code=400, detail="Username already taken")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already taken"
+        )
     
     db_user = models.User(**user.dict())
     db.add(db_user)
@@ -32,5 +38,8 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 def read_user(user_id: int, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
     if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
     return db_user

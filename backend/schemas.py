@@ -15,7 +15,7 @@ class User(UserBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ItemBase(BaseModel):
     title: str
@@ -36,4 +36,4 @@ class Item(ItemBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

@@ -1,17 +1,26 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base
-from .routers import items, users
+from dotenv import load_dotenv
+from database import engine, Base
+from routers import items, users
+from config import settings
+
+# Load environment variables
+load_dotenv()
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="FastAPI Vue Boilerplate", version="1.0.0")
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    description="A boilerplate for FastAPI backend with Vue frontend",
+    version="1.0.0"
+)
 
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],  # Vue dev server
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
