@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from database import engine, Base
-from routers import items, users, reports
+from routers import items, users, reports, contact
 from config import settings
 import logging
 import os
@@ -45,6 +45,7 @@ app.add_middleware(
 app.include_router(items.router, prefix="/api/items", tags=["items"])
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(reports.router, prefix="/api/reports", tags=["reports"])
+app.include_router(contact.router, prefix="/api/contact", tags=["contact"])
 
 @app.get("/")
 def read_root():

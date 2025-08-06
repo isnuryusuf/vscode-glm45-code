@@ -108,5 +108,31 @@ export default {
   async getReportsHealth() {
     const response = await api.get('/api/reports/health')
     return response.data
+  },
+
+  // Contact API
+  async getContacts() {
+    const response = await api.get('/api/contact/')
+    return response.data
+  },
+
+  async getContact(id) {
+    const response = await api.get(`/api/contact/${id}`)
+    return response.data
+  },
+
+  async createContact(contact) {
+    const response = await api.post('/api/contact/', contact)
+    return response.data
+  },
+
+  async updateContact(id, contact) {
+    const response = await api.put(`/api/contact/${id}`, contact)
+    return response.data
+  },
+
+  async deleteContact(id) {
+    const response = await api.delete(`/api/contact/${id}`)
+    return response.data
   }
 }

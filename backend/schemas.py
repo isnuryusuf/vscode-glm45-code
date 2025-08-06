@@ -17,6 +17,23 @@ class User(UserBase):
     class Config:
         from_attributes = True
 
+class ContactBase(BaseModel):
+    name: str
+    email: str
+    subject: str
+    message: str
+
+class ContactCreate(ContactBase):
+    pass
+
+class Contact(ContactBase):
+    id: int
+    created_at: datetime
+    is_resolved: bool
+
+    class Config:
+        from_attributes = True
+
 class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None
