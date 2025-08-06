@@ -11,9 +11,11 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     console.log(`API Request: ${config.method.toUpperCase()} ${config.url}`)
+    console.log('Base URL:', api.defaults.baseURL)
     return config
   },
   (error) => {
+    console.error('API Request Error:', error)
     return Promise.reject(error)
   }
 )
@@ -21,10 +23,13 @@ api.interceptors.request.use(
 // Response interceptor for error handling
 api.interceptors.response.use(
   (response) => {
+    console.log(`API Response: ${response.status} ${response.config.url}`)
     return response
   },
   (error) => {
     console.error('API Error:', error.response?.data || error.message)
+    console.error('Error Status:', error.response?.status)
+    console.error('Error Config:', error.config)
     return Promise.reject(error)
   }
 )
@@ -75,6 +80,33 @@ export default {
 
   async createUser(user) {
     const response = await api.post('/api/users/', user)
+    return response.data
+  },
+
+  // Reports API
+  async getUsersReport() {
+    const response = await api.get('/api/reports/users', {
+      responseType: 'blob'
+    })
+    return response.data
+  },
+
+  async getItemsReport() {
+    const response = await api.get('/api/reports/items', {
+      responseType: 'blob'
+    })
+    return response.data
+  },
+
+  async getComprehensiveReport() {
+    const response = await api.get('/api/reports/comprehensive', {
+      responseType: 'blob'
+    })
+    return response.data
+  },
+
+  async getReportsHealth() {
+    const response = await api.get('/api/reports/health')
     return response.data
   }
 }

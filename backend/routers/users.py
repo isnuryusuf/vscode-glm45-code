@@ -28,7 +28,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
             detail="Username already taken"
         )
     
-    db_user = models.User(**user.dict())
+    db_user = models.User(**user.model_dump())
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

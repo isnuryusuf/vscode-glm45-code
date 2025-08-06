@@ -29,7 +29,7 @@ def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
         db.refresh(default_user)
         default_owner_id = default_user.id
     
-    db_item = models.Item(**item.dict(), owner_id=default_owner_id)
+    db_item = models.Item(**item.model_dump(), owner_id=default_owner_id)
     db.add(db_item)
     db.commit()
     db.refresh(db_item)
@@ -54,7 +54,7 @@ def update_item(item_id: int, item: schemas.ItemUpdate, db: Session = Depends(ge
             detail="Item not found"
         )
     
-    update_data = item.dict(exclude_unset=True)
+    update_data = item.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(db_item, field, value)
     
