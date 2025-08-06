@@ -38,3 +38,18 @@ class Contact(Base):
     message = Column(String(1000), nullable=False)
     created_at = Column(DateTime, server_default=func.now())
     is_resolved = Column(Boolean, default=False)
+
+class UserAccess(Base):
+    __tablename__ = "user_access"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    access_time = Column(DateTime, server_default=func.now())
+    ip_address = Column(String(45))
+    user_agent = Column(String(500))
+    endpoint = Column(String(200))
+    method = Column(String(10))
+    status_code = Column(Integer)
+    
+    # Relationship with user
+    user = relationship("User")

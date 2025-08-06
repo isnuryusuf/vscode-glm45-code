@@ -6,6 +6,7 @@
       </div>
       <div class="nav-links">
         <router-link to="/">Home</router-link>
+        <router-link to="/dashboard">Dashboard</router-link>
         <router-link to="/items">Items</router-link>
         <router-link to="/users">Users</router-link>
         <router-link to="/reports">Reports</router-link>

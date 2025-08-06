@@ -34,6 +34,39 @@ class Contact(ContactBase):
     class Config:
         from_attributes = True
 
+class UserAccessBase(BaseModel):
+    user_id: int
+    ip_address: Optional[str] = None
+    user_agent: Optional[str] = None
+    endpoint: Optional[str] = None
+    method: Optional[str] = None
+    status_code: Optional[int] = None
+
+class UserAccessCreate(UserAccessBase):
+    pass
+
+class UserAccess(UserAccessBase):
+    id: int
+    access_time: datetime
+    
+    # Include user information
+    username: Optional[str] = None
+    email: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+class DashboardStats(BaseModel):
+    total_users: int
+    active_users: int
+    total_contacts: int
+    unresolved_contacts: int
+    total_items: int
+    recent_access_count: int
+    access_by_endpoint: dict
+    access_by_method: dict
+    access_by_status: dict
+
 class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None

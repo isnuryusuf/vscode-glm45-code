@@ -134,5 +134,31 @@ export default {
   async deleteContact(id) {
     const response = await api.delete(`/api/contact/${id}`)
     return response.data
+  },
+
+  // Dashboard API
+  async getDashboardStats() {
+    const response = await api.get('/api/dashboard/stats')
+    return response.data
+  },
+
+  async getRecentAccess(skip = 0, limit = 50) {
+    const response = await api.get(`/api/dashboard/recent-access?skip=${skip}&limit=${limit}`)
+    return response.data
+  },
+
+  async logUserAccess(accessData) {
+    const response = await api.post('/api/dashboard/log-access', accessData)
+    return response.data
+  },
+
+  async getUserAccessHistory(userId, skip = 0, limit = 100) {
+    const response = await api.get(`/api/dashboard/user-access/${userId}?skip=${skip}&limit=${limit}`)
+    return response.data
+  },
+
+  async deleteAccessLog(accessId) {
+    const response = await api.delete(`/api/dashboard/access/${accessId}`)
+    return response.data
   }
 }
