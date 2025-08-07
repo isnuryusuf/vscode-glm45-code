@@ -1,5 +1,25 @@
 # FastAPI Vue Boilerplate
 
+## Quick Start
+
+```bash
+# Backend
+cd backend
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# Unix/macOS
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env   # optional
+python run.py
+
+# Frontend
+cd ../frontend
+npm install
+npm run serve
+```
+
 A complete boilerplate for building web applications with FastAPI backend, Vue.js frontend, and SQLite database.
 
 ## Features
